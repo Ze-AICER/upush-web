@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APUSH Interactive Course Teacher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #3949ab;
+            --accent: #5c6bc0;
+            --light: #e8eaf6;
+            --dark: #283593;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --text: #212121;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: var(--gray);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .card-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .card-content {
+            display: none;
+        }
+
+        .card-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .highlight {
+            background-color: var(--light);
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light);
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 5px;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 5px 5px 5px 0;
+        }
+
+        .skill-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .skill-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .exam-section {
+            margin-bottom: 2rem;
+        }
+
+        .exam-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .exam-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .exam-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .weight-bar {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+
+        .weight-label {
+            width: 100px;
+            font-weight: 600;
+        }
+
+        .weight-value {
+            width: 50px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dropdown styles */
+        .dropdown-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .dropdown-header {
+            background-color: var(--light);
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-header:hover {
+            background-color: #d1d9ff;
+        }
+
+        .dropdown-header h4 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .dropdown-content {
+            display: none;
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 0 0 6px 6px;
+            border: 1px solid var(--light);
+            border-top: none;
+        }
+
+        .dropdown-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .dropdown-icon {
+            transition: transform 0.3s;
+        }
+
+        .dropdown-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .concept-item {
+            margin-bottom: 1rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .concept-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .concept-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .concept-details {
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-history"></i>
+                <h1>APUSH Course Teacher</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#overview" class="nav-link active">Overview</a></li>
+                    <li><a href="#units" class="nav-link">Units</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#exam" class="nav-link">Exam Prep</a></li>
+                    <li><a href="#study" class="nav-link">Study Plan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>AP U.S. History Interactive Course</h2>
+            <p>Your complete guide to mastering APUSH with interactive lessons, unit breakdowns, exam strategies, and study plans</p>
+        </div>
+    </section>
+
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title">APUSH at a Glance</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Course Overview</h3>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="card-content active">
+                        <ul>
+                            <li><strong>Time span:</strong> 1491–present across 9 units</li>
+                            <li><strong>What you practice:</strong> Historical reasoning (causation, comparison, continuity and change), sourcing/analysis of primary & secondary sources, and argument writing (SAQs, DBQ, LEQ)</li>
+                            <li><strong>Exam weight:</strong> MCQ 40%, SAQ 20%, DBQ 25%, LEQ 15%</li>
+                            <li><strong>Big tip:</strong> Units 3–8 dominate the exam; Units 1 and 9 are least weighted</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Major Themes</h3>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="card-content">
+                        <p>You'll connect these themes across all units:</p>
+                        <div>
+                            <span class="theme-tag">NAT: American and National Identity</span>
+                            <span class="theme-tag">MIG: Migration and Settlement</span>
+                            <span class="theme-tag">GEO: Geography and the Environment</span>
+                            <span class="theme-tag">WXT: Work, Exchange, and Technology</span>
+                            <span class="theme-tag">POL: Politics and Power</span>
+                            <span class="theme-tag">ARC: American and Regional Culture</span>
+                            <span class="theme-tag">SOC: Social Structures</span>
+                            <span class="theme-tag">WOR: America in the World</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="units" class="section">
+        <div class="container">
+            <h2 class="section-title">The 9 APUSH Units</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="unit1">Unit 1: 1491–1607</div>
+                <div class="tab" data-tab="unit2">Unit 2: 1607–1754</div>
+                <div class="tab" data-tab="unit3">Unit 3: 1754–1800</div>
+                <div class="tab" data-tab="unit4">Unit 4: 1800–1848</div>
+                <div class="tab" data-tab="unit5">Unit 5: 1844–1877</div>
+                <div class="tab" data-tab="unit6">Unit 6: 1865–1898</div>
+                <div class="tab" data-tab="unit7">Unit 7: 1890–1945</div>
+                <div class="tab" data-tab="unit8">Unit 8: 1945–1980</div>
+                <div class="tab" data-tab="unit9">Unit 9: 1980–Present</div>
+            </div>
+            
+            <div class="tab-content active" id="unit1">
+                <div class="card">
+                    <h3>Unit 1: 1491–1607 — Precontact Americas & early European exploration</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Diverse Native societies adapted to environments</div>
+                                <div class="concept-details">
+                                    Native American societies developed distinct cultures based on their environments. In the Southwest, Pueblo peoples built complex irrigation systems for maize agriculture. In the Great Plains, nomadic tribes followed bison herds. The Mississippians built large mound cities like Cahokia, while Pacific Northwest tribes developed sophisticated fishing cultures around salmon.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The Columbian Exchange transforms the Atlantic world</div>
+                                <div class="concept-details">
+                                    The exchange of plants, animals, diseases, and people between the Eastern and Western Hemispheres after 1492. European diseases like smallpox devastated Native populations (up to 90% mortality in some areas). Horses transformed Plains cultures, while crops like maize and potatoes revolutionized European agriculture and contributed to population growth.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Spanish/Portuguese colonization models</div>
+                                <div class="concept-details">
+                                    Spain established a hierarchical colonial system with encomiendas (granting Native labor to colonists) and later repartimiento. The casta system created a racial hierarchy. The Valladolid Debate (1550-1551) between Las Casas (advocating for Native rights) and Sepúlveda (justifying conquest) highlighted ethical questions about colonization.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Native American regions</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Southwest:</strong> Pueblo peoples (adobe dwellings, maize agriculture, complex irrigation)</li>
+                                        <li><strong>Great Basin/Plains:</strong> Nomadic bison hunters (Shoshone, Sioux), portable tipis</li>
+                                        <li><strong>Northeast/Mississippi:</strong> Iroquois Confederacy (political alliance), Cahokia (mound city, trade center)</li>
+                                        <li><strong>Pacific Northwest:</strong> Salmon-based economies, totem poles, potlatch ceremonies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">European motives and technology</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>"Three G's":</strong> God (spread Christianity), Glory (empire building), Gold (wealth)</li>
+                                        <li><strong>Maritime technology:</strong> Caravel ships, astrolabe, magnetic compass</li>
+                                        <li><strong>Joint-stock companies:</strong> Virginia Company, funded colonization through investor capital</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Columbian Exchange impacts</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>From Americas to Europe:</strong> Maize, potatoes, tomatoes, tobacco, cacao</li>
+                                        <li><strong>From Europe to Americas:</strong> Wheat, sugar, coffee, horses, cattle, pigs</li>
+                                        <li><strong>Disease impact:</strong> Smallpox, measles, influenza devastated Native populations</li>
+                                        <li><strong>Atlantic slave trade:</strong> Accelerated to replace Native labor in Caribbean and Brazil</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Spanish colonial systems</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Encomienda system:</strong> Spanish granted rights to Native labor and tribute</li>
+                                        <li><strong>Repartimiento:</strong> Replaced encomienda, regulated labor conditions</li>
+                                        <li><strong>Mission system:</strong> Religious conversion centers (California missions)</li>
+                                        <li><strong>Valladolid Debate:</strong> Las Casas vs. Sepúlveda on Native rights</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Environment shaping culture</div>
+                                <div class="concept-details">
+                                    How geography influenced Native American societies: Pueblo irrigation in arid Southwest, Plains nomadism following bison, Pacific Northwest fishing cultures. These adaptations show how environment determined social structure, economy, and technology.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Exchange and its consequences</div>
+                                <div class="concept-details">
+                                    The Columbian Exchange led to demographic catastrophe (Native population decline), ecological transformation (Old World animals in Americas), and economic shifts (sugar plantations, silver mines). These changes created new global trade networks and power structures.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Comparative colonization models</div>
+                                <div class="concept-details">
+                                    Spanish focused on resource extraction and conversion, establishing hierarchical systems. French emphasized trade alliances with Natives. English initially sought precious metals then shifted to agriculture. These different approaches shaped long-term colonial development and Native relations.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit2">
+                <div class="card">
+                    <h3>Unit 2: 1607–1754 — Colonial America</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Regional colonial differences</div>
+                                <div class="concept-details">
+                                    Distinct regional identities emerged: New England (Puritan religious communities, town meetings), Chesapeake (tobacco economy, indentured servitude), Middle Colonies (religious diversity, grain production), Southern Colonies (plantation slavery, cash crops). These differences reflected geography, economy, and founding purposes.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Labor systems shift toward race-based slavery</div>
+                                <div class="concept-details">
+                                    Colonial labor evolved from indentured servitude to chattel slavery. Bacon's Rebellion (1676) revealed tensions between former servants and elites, accelerating the shift to racial slavery. The Atlantic slave trade brought millions of Africans to the Americas, creating a racial hierarchy that defined colonial society.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Evolving imperial-colonial tensions</div>
+                                <div class="concept-details">
+                                    Navigation Acts regulated colonial trade for mercantilist benefits. Salutary neglect allowed colonial self-government. Growing colonial identity and resistance to imperial control (like the Dominion of New England) foreshadowed revolutionary sentiments.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Colonial regions</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>New England:</strong> Puritan religious communities, town meetings, "City upon a Hill" (Winthrop), Half-Way Covenant, fishing and shipbuilding</li>
+                                        <li><strong>Chesapeake:</strong> Tobacco economy, headright system, Jamestown struggles, Bacon's Rebellion (1676)</li>
+                                        <li><strong>Middle Colonies:</strong> Religious diversity (Quakers, Dutch), "bread basket" colonies, cosmopolitan cities like Philadelphia</li>
+                                        <li><strong>Southern Colonies:</strong> Rice and indigo in South Carolina/Georgia, sugar in Caribbean, slave majority populations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Labor systems</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Indentured servitude:</strong> Contracted labor for passage to America, 4-7 years terms</li>
+                                        <li><strong>Transition to slavery:</strong> Decline of indentured servitude, rise of chattel slavery</li>
+                                        <li><strong>Slave codes:</strong> Legal restrictions on enslaved people (Virginia, 1705)</li>
+                                        <li><strong>Resistance:</strong> Stono Rebellion (1739), everyday forms of resistance</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Imperial system</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Mercantilism:</strong> Economic theory that colonies exist for mother country's benefit</li>
+                                        <li><strong>Navigation Acts:</strong> Regulated colonial trade, required goods on English ships</li>
+                                        <li><strong>Salutary neglect:</strong> Lax enforcement of trade laws before 1763</li>
+                                        <li><strong>Dominion of New England:</strong> Failed attempt to centralize colonial control</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Cultural and intellectual developments</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>First Great Awakening:</strong> Religious revival (Whitefield, Edwards), challenged established churches</li>
+                                        <li><strong>Enlightenment:</strong> Emphasis on reason, natural rights (Locke), scientific inquiry</li>
+                                        <li><strong>Zenger Trial (1735):</strong> Established freedom of the press precedent</li>
+                                        <li><strong>Colonial education:</strong> Harvard (1636), Yale (1701), dame schools</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Native American relations</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Pequot War (1636-1638):</strong> Conflict between English settlers and Pequot tribe</li>
+                                        <li><strong>King Philip's War (1675-1676):</strong> Wampanoag leader Metacom against New England colonies</li>
+                                        <li><strong>Iroquois Confederacy:</strong> Powerful Native alliance that played Europeans against each other</li>
+                                        <li><strong>Land dispossession:</strong> Gradual loss of Native lands through treaties and force</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Why slavery expanded</div>
+                                <div class="concept-details">
+                                    Slavery expanded due to economic factors (tobacco, rice, indigo required large labor forces), social control (after Bacon's Rebellion), and racial ideologies that justified permanent hereditary bondage. The Atlantic slave trade provided the labor force that made plantation agriculture profitable.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Religion and democratization</div>
+                                <div class="concept-details">
+                                    The Great Awakening challenged religious authority and encouraged individual interpretation, fostering democratic ideals. New Light preachers reached common people, while Enlightenment ideas about natural rights influenced political thought. Both movements questioned traditional hierarchies.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Regional economies and politics</div>
+                                <div class="concept-details">
+                                    Economic systems shaped political development: New England's town meetings reflected small communities, Southern plantations created hierarchical societies, Middle Colonies' diversity fostered tolerance. These regional differences would later influence revolutionary alignments and constitutional debates.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit3">
+                <div class="card">
+                    <h3>Unit 3: 1754–1800 — Revolution and the new nation</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Seven Years' War redraws power</div>
+                                <div class="concept-details">
+                                    The global conflict (French and Indian War in North America) eliminated France as a colonial power, leaving Britain dominant but with massive war debts. Britain's attempts to tax colonies to pay these debts sparked resistance that led to revolution.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Imperial crisis leads to Revolution</div>
+                                <div class="concept-details">
+                                    British policies after 1763 (Proclamation Line, Sugar Act, Stamp Act, Townshend Acts, Tea Act, Intolerable Acts) were seen as violations of colonial rights. Events like Boston Massacre and Boston Tea Party escalated tensions, leading to the Declaration of Independence in 1776.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Fragile confederation to Constitution</div>
+                                <div class="concept-details">
+                                    The Articles of Confederation proved too weak to govern effectively. Shays' Rebellion exposed these weaknesses, leading to the Constitutional Convention of 1787. The resulting Constitution created a stronger federal government with checks and balances.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">First party system</div>
+                                <div class="concept-details">
+                                    Political divisions emerged between Federalists (Hamilton, strong central government, commercial interests) and Democratic-Republicans (Jefferson, states' rights, agrarian interests). These factions established the first American party system, shaping early national politics.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Causes of the Revolution</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Seven Years' War (1756-1763):</strong> Britain gained territory but accumulated debt</li>
+                                        <li><strong>Proclamation Line (1763):</strong> Restricted colonial settlement west of Appalachians</li>
+                                        <li><strong>Taxation acts:</strong> Sugar Act (1764), Stamp Act (1765), Townshend Acts (1767), Tea Act (1773)</li>
+                                        <li><strong>Colonial resistance:</strong> Sons of Liberty, boycotts, Committees of Correspondence</li>
+                                        <li><strong>Key events:</strong> Boston Massacre (1770), Boston Tea Party (1773), Intolerable Acts (1774)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The Revolutionary War</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Ideology:</strong> Republicanism, natural rights (Locke), no taxation without representation</li>
+                                        <li><strong>Key battles:</strong> Lexington and Concord (1775), Saratoga (1777, turning point), Yorktown (1781)</li>
+                                        <li><strong>Diplomacy:</strong> Franco-American alliance (1778), Treaty of Paris (1783)</li>
+                                        <li><strong>Home front:</strong> Loyalists vs. Patriots, African Americans' roles, women's contributions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Articles of Confederation</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Strengths:</strong> Northwest Ordinance (land policy, statehood process), managed Revolutionary War</li>
+                                        <li><strong>Weaknesses:</strong> No power to tax, no executive branch, no national currency, difficulty passing laws</li>
+                                        <li><strong>Shays' Rebellion (1786-1787):</strong> Exposed weaknesses of national government</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Constitution and ratification</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Constitutional Convention (1787):</strong> Virginia Plan, New Jersey Plan, Great Compromise</li>
+                                        <li><strong>Key compromises:</strong> Three-Fifths Compromise, Electoral College, slave trade compromise</li>
+                                        <li><strong>Federalists vs. Anti-Federalists:</strong> Debate over ratification, Federalist Papers</li>
+                                        <li><strong>Bill of Rights (1791):</strong> First ten amendments protecting individual liberties</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Washington and Adams administrations</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Washington:</strong> Precedents (two terms, cabinet), Hamilton's financial plan (Bank, assumption, tariffs), Whiskey Rebellion, Neutrality Proclamation, Farewell Address</li>
+                                        <li><strong>Adams:</strong> XYZ Affair, Alien and Sedition Acts, Kentucky and Virginia Resolutions</li>
+                                        <li><strong>Foreign policy:</strong> Jay's Treaty (Britain), Pinckney's Treaty (Spain)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Competing visions of the republic</div>
+                                <div class="concept-details">
+                                    Federalists envisioned a strong central government promoting commerce and industry, while Democratic-Republicans favored limited government and agrarian society. These differing views shaped early national policy and established patterns of political conflict that continue today.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Federal vs. state power</div>
+                                <div class="concept-details">
+                                    The Constitution created a federal system with shared powers. Debates over the necessary and proper clause, supremacy clause, and 10th Amendment established ongoing tensions between national authority and states' rights, evident in conflicts like the Virginia and Kentucky Resolutions.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Continuity vs. change from colonial to national government</div>
+                                <div class="concept-details">
+                                    While the Revolution broke ties with Britain, many colonial institutions continued: property requirements for voting, state sovereignty, and slavery. The Constitution represented both revolutionary change (stronger national government) and continuity (protection of property, limited democracy).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit4">
+                <div class="card">
+                    <h3>Unit 4: 1800–1848 — The early republic, market revolution, and reform</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Expanding democracy (for white men)</div>
+                                <div class="concept-details">
+                                    The period saw the expansion of political democracy for white men through property requirement eliminations, universal white male suffrage, and more direct political participation. However, this expansion excluded women, African Americans, and Native Americans.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Market Revolution transforms work, family, and regions</div>
+                                <div class="concept-details">
+                                    Innovations in transportation, communication, and production created a national market economy. Factories changed work patterns, while the cotton gin and textile mills linked Northern industry and Southern agriculture. This transformation created new social classes and regional interdependencies.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Reform movements rise</div>
+                                <div class="concept-details">
+                                The Second Great Awakening inspired numerous reform movements addressing social ills. Abolitionism, women's rights, temperance, prison reform, and education reform sought to perfect American society. These movements reflected both optimism about human improvement and conflicts over values.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Jeffersonian era</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Marbury v. Madison (1803):</strong> Established judicial review</li>
+                                        <li><strong>Louisiana Purchase (1803):</strong> Doubled size of U.S., Lewis and Clark expedition</li>
+                                        <li><strong>Embargo Act (1807):</strong> Failed attempt to protect neutral rights</li>
+                                        <li><strong>War of 1812:</strong> Causes (impressment, western expansion), Hartford Convention, Treaty of Ghent</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Era of Good Feelings and nationalism</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Monroe Doctrine (1823):</strong> Warned Europe against colonization in Western Hemisphere</li>
+                                        <li><strong>American System:</strong> Henry Clay's plan for protective tariffs, national bank, internal improvements</li>
+                                        <li><strong>Missouri Compromise (1820):</strong> Admitted Missouri as slave state, Maine as free, banned slavery north of 36°30'</li>
+                                        <li><strong>Adams-Onís Treaty (1819):</strong> Acquired Florida, set boundary with Spanish territory</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Market Revolution</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Transportation:</strong> Erie Canal (1825), National Road, railroads, steamboats</li>
+                                        <li><strong>Communication:</strong> Telegraph (Morse, 1844), postal system expansion</li>
+                                        <li><strong>Industrialization:</strong> Lowell system (textile mills), interchangeable parts, early factories</li>
+                                        <li><strong>Agriculture:</strong> Cotton gin (Whitney), mechanical reaper, westward expansion</li>
+                                        <li><strong>Immigration:</strong> Irish and German immigrants, nativist reactions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Jacksonian Democracy</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Expansion of democracy:</strong> Universal white male suffrage, spoils system</li>
+                                        <li><strong>Bank War:</strong> Jackson opposed Second Bank of U.S., vetoed recharter, removed deposits</li>
+                                        <li><strong>Nullification Crisis:</strong> South Carolina opposed tariff, Jackson threatened force, Compromise Tariff</li>
+                                        <li><strong>Indian Removal:</strong> Indian Removal Act (1830), Trail of Tears (1838-1839)</li>
+                                        <li><strong>Whig Party:</strong> Opposition to Jackson, supported American System</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Reform movements</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Second Great Awakening:</strong> Charles Finney, camp meetings, emphasized individual salvation</li>
+                                        <li><strong>Temperance:</strong> American Temperance Society, Maine Law (1851)</li>
+                                        <li><strong>Abolitionism:</strong> William Lloyd Garrison (The Liberator), Frederick Douglass, American Anti-Slavery Society</li>
+                                        <li><strong>Women's rights:</strong> Seneca Falls Convention (1848), Declaration of Sentiments, Elizabeth Cady Stanton, Susan B. Anthony</li>
+                                        <li><strong>Education reform:</strong> Horace Mann, public schools, McGuffey readers</li>
+                                        <li><strong>Prison/asylum reform:</strong> Dorothea Dix, humane treatment</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Democracy vs. power</div>
+                                <div class="concept-details">
+                                    Jacksonian democracy expanded political participation but also concentrated power in the executive branch. The tension between popular sovereignty and checks on majority power shaped debates over the bank, nullification, and executive authority.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Regional economies and sectional tensions</div>
+                                <div class="concept-details">
+                                    The Market Revolution created economic interdependence but also deepened sectional differences. The industrializing North, agricultural South, and grain-producing West developed conflicting interests over tariffs, internal improvements, and slavery that would lead to civil war.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Religion fueling reform</div>
+                                <div class="concept-details">
+                                    The Second Great Awakening's emphasis on individual perfectionism inspired reform movements. Evangelical Christianity provided moral justification for abolition, temperance, and other reforms, while also creating conflicts over slavery and social change.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit5">
+                <div class="card">
+                    <h3>Unit 5: 1844–1877 — Expansion, Civil War, and Reconstruction</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Manifest Destiny intensifies sectionalism</div>
+                                <div class="concept-details">
+                                    The belief in America's divine mission to expand across the continent led to territorial acquisitions that intensified debates over slavery's expansion. The Mexican-American War and subsequent territorial gains forced the nation to confront whether new territories would be slave or free.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Slavery question breaks the Union</div>
+                                <div class="concept-details">
+                                    The irreconcilable conflict between slave and free states over slavery's expansion into western territories, compounded by economic differences and cultural divides, led to secession and civil war. The election of Lincoln in 1860 was the final catalyst for Southern secession.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Contested Reconstruction</div>
+                                <div class="concept-details">
+                                    After the Civil War, the nation struggled to rebuild and integrate freed slaves into society. Presidential and Congressional Reconstruction plans clashed, while white Southerners resisted change through violence and legal means. The era ended with the Compromise of 1877 and the abandonment of Reconstruction.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Westward expansion and sectional crisis</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Manifest Destiny:</strong> John O'Sullivan, belief in territorial expansion</li>
+                                        <li><strong>Texas annexation (1845):</strong> Broke from Mexico, requested annexation</li>
+                                        <li><strong>Oregon boundary dispute:</strong> "54°40' or fight!" settled at 49th parallel</li>
+                                        <li><strong>Mexican-American War (1846-1848):</strong> Polk's expansionism, Treaty of Guadalupe Hidalgo, Mexican Cession</li>
+                                        <li><strong>Wilmot Proviso (1846):</strong> Proposed banning slavery in new territories</li>
+                                        <li><strong>Compromise of 1850:</strong> California as free state, popular sovereignty, Fugitive Slave Act</li>
+                                        <li><strong>Uncle Tom's Cabin (1852):</strong> Harriet Beecher Stowe's novel influenced anti-slavery sentiment</li>
+                                        <li><strong>Kansas-Nebraska Act (1854):</strong> Repealed Missouri Compromise, led to "Bleeding Kansas"</li>
+                                        <li><strong>Dred Scott decision (1857):</strong> Ruled African Americans not citizens, Congress couldn't ban slavery</li>
+                                        <li><strong>Lincoln-Douglas debates (1858):</strong> Focused on slavery's expansion</li>
+                                        <li><strong>John Brown's raid (1859):</strong> Harpers Ferry, increased sectional tensions</li>
+                                        <li><strong>Election of 1860:</strong> Lincoln's victory prompted Southern secession</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Civil War</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Confederacy formation:</strong> South Carolina first to secede (Dec 1860), Confederate States of America</li>
+                                        <li><strong>Advantages:</strong> North (population, industry, railroads), South (military leadership, defensive war)</li>
+                                        <li><strong>Key battles:</strong> Fort Sumter (first shots), Antietam (bloodiest day), Gettysburg (turning point), Vicksburg (split Confederacy)</li>
+                                        <li><strong>Emancipation Proclamation (1863):</strong> Freed slaves in Confederate states, changed war purpose</li>
+                                        <li><strong>African American contributions:</strong> 180,000 served in Union Army, Navy</li>
+                                        <li><strong>Home front:</strong> Draft riots, women's roles, economic transformations</li>
+                                        <li><strong>Gettysburg Address (1863):</strong> Redefined war as struggle for democracy</li>
+                                        <li><strong>Appomattox Court House (1865):</strong> Lee's surrender ended war</li>
+                                        <li><strong>13th Amendment (1865):</strong> Abolished slavery</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Reconstruction</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Presidential Reconstruction:</strong> Lincoln's 10% Plan, Johnson's lenient approach</li>
+                                        <li><strong>Radical Reconstruction:</strong> Congressional control, Military Reconstruction Acts</li>
+                                        <li><strong>Constitutional amendments:</strong> 14th (citizenship, equal protection), 15th (voting rights)</li>
+                                        <li><strong>Freedmen's Bureau:</strong> Assisted freed slaves with education, employment</li>
+                                        <li><strong>Black Codes:</strong> Southern laws restricting African American rights</li>
+                                        <li><strong>Ku Klux Klan:</strong> Terrorist organization targeting African Americans and Republicans</li>
+                                        <li><strong>Enforcement Acts:</strong> Federal laws to protect civil rights</li>
+                                        <li><strong>Sharecropping:</strong> Economic system that replaced slavery, trapped many in poverty</li>
+                                        <li><strong>Panic of 1873:</strong> Economic depression shifted national attention</li>
+                                        <li><strong>Compromise of 1877:</strong> Resolved disputed election, ended Reconstruction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Multiple causes of war</div>
+                                <div class="concept-details">
+                                    The Civil War resulted from interconnected factors: sectional economic differences (industrial North vs. agrarian South), slavery's expansion, states' rights vs. federal authority, political failures (Compromise of 1850, Kansas-Nebraska Act), and cultural divides. These created an irrepressible conflict.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Emancipation as war aim</div>
+                                <div class="concept-details">
+                                    The war's purpose evolved from preserving the Union to ending slavery. The Emancipation Proclamation transformed the conflict into a revolution for human freedom, undermined the Confederacy, and allowed African American soldiers to fight for their own liberation.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Why Reconstruction faltered</div>
+                                <div class="concept-details">
+                                    Reconstruction failed due to multiple factors: Northern fatigue with the "Southern question," economic priorities shifting to industrialization, Supreme Court decisions limiting federal power, white Southern resistance through terrorism and legal means, and the Compromise of 1877 that abandoned African Americans to white supremacist rule.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit6">
+                <div class="card">
+                    <h3>Unit 6: 1865–1898 — The Gilded Age and the West</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Industrial capitalism and urbanization</div>
+                                <div class="concept-details">
+                                    The rise of big business, technological innovation, and industrial production transformed the American economy. This created immense wealth for industrialists but also harsh working conditions, while rapid urbanization brought overcrowding, sanitation problems, and new social challenges.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Immigration and reform</div>
+                                <div class="concept-details">
+                                    Millions of "new immigrants" from Southern and Eastern Europe arrived, changing America's demographic makeup. Reformers responded to urban problems with settlement houses, social gospel movements, and political reforms, while nativists reacted with restriction and prejudice.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Conquest and assimilation in the West</div>
+                                <div class="concept-details">
+                                    Federal policy promoted westward settlement through land grants and railroad subsidies, while Native Americans were confined to reservations and pressured to assimilate. The closing of the frontier in 1890 marked a symbolic end to westward expansion.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Populism</div>
+                                <div class="concept-details">
+                                    Farmers organized against railroads, banks, and political corruption through the Granger movement and People's Party. The Populist movement challenged the two-party system and advocated for policies to help ordinary people against corporate interests.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Big business and industrialization</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Railroads:</strong> Transcontinental railroad (1869), time zones, credit mobilier scandal</li>
+                                        <li><strong>Industrialists:</strong> Carnegie (steel), Rockefeller (oil), Morgan (finance), Vanderbilt (railroads)</li>
+                                        <li><strong>Business practices:</strong> Horizontal/vertical integration, trusts, holding companies</li>
+                                        <li><strong>Laissez-faire capitalism:</strong> Minimal government regulation, Social Darwinism</li>
+                                        <li><strong>Gospel of Wealth:</strong> Carnegie's philosophy of philanthropy</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Labor and conflict</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Working conditions:</strong> Long hours, low wages, dangerous environments, child labor</li>
+                                        <li><strong>Labor organizations:</strong> Knights of Labor (inclusive), American Federation of Labor (skilled workers)</li>
+                                        <li><strong>Strikes and violence:</strong> Great Railroad Strike (1877), Haymarket Riot (1886), Homestead Strike (1892), Pullman Strike (1894)</li>
+                                        <li><strong>Government response:</strong> Use of troops, injunctions, anti-union decisions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Urbanization and society</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>City growth:</strong> Skyscrapers, tenements, transportation systems</li>
+                                        <li><strong>Political machines:</strong> Boss Tweed and Tammany Hall, graft and corruption</li>
+                                        <li><strong>Settlement houses:</strong> Jane Addams and Hull House, social services</li>
+                                        <li><strong>Social Gospel:</strong> Walter Rauschenbusch, applying Christian ethics to social problems</li>
+                                        <li><strong>Immigration:</strong> "New immigrants" from Southern/Eastern Europe, ethnic neighborhoods</li>
+                                        <li><strong>Nativism:</strong> American Protective Association, immigration restrictions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The West</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Westward settlement:</strong> Homestead Act (1862), cattle ranching, mining booms</li>
+                                        <li><strong>Native American policy:</strong> Reservation system, Dawes Act (1887), assimilation</li>
+                                        <li><strong>Indian Wars:</strong> Little Bighorn (1876), Wounded Knee (1890)</li>
+                                        <li><strong>Closing of frontier:</strong> Turner Thesis (1893) on frontier's role in American character</li>
+                                        <li><strong>Environmental impact:</strong> Destruction of bison, overgrazing, resource depletion</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Farmers and Populism</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Farm problems:</strong> Falling prices, debt, railroad rates, crop liens</li>
+                                        <li><strong>Granger movement:</strong> State regulation of railroads, Granger laws</li>
+                                        <li><strong>Farmers' Alliances:</strong> Cooperative efforts, political activism</li>
+                                        <li><strong>People's Party (Populists):</strong> Omaha Platform (1892), free silver, income tax</li>
+                                        <li><strong>Cross of Gold speech (1896):</strong> William Jennings Bryan, free silver vs. gold standard</li>
+                                        <li><strong>Election of 1896:</strong> McKinley (Republican) vs. Bryan (Democrat/Populist)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Race and law</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Jim Crow:</strong> Racial segregation laws, disenfranchisement</li>
+                                        <li><strong>Plessy v. Ferguson (1896):</strong> "Separate but equal" doctrine</li>
+                                        <li><strong>Booker T. Washington:</strong> Atlanta Compromise, vocational education</li>
+                                        <li><strong>W.E.B. Du Bois:</strong> Niagara Movement, NAACP, higher education</li>
+                                        <li><strong>Ida B. Wells:</strong> Anti-lynching crusade</li>
+                                        <li><strong>Chinese Exclusion Act (1882):</strong> First major immigration restriction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Responses to industrialization</div>
+                                <div class="concept-details">
+                                    Americans responded to industrialization in conflicting ways: industrialists celebrated progress and wealth, workers organized unions and struck for better conditions, reformers advocated government regulation, and Social Darwinists justified laissez-faire policies. These responses shaped the modern American economy.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Federal policy toward labor and Natives</div>
+                                <div class="concept-details">
+                                    The government generally sided with business against labor, using troops and courts to break strikes. Toward Native Americans, policy shifted from warfare to assimilation through reservation confinement and the Dawes Act, reflecting a consistent pattern of favoring expansion and economic development over minority rights.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Reform vs. conservatism</div>
+                                <div class="concept-details">
+                                    The Gilded Age featured tension between reform impulses (Populism, labor movements, social gospel) and conservative forces defending the status quo (business interests, political machines, Supreme Court). This conflict set the stage for the Progressive Era reforms that followed.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit7">
+                <div class="card">
+                    <h3>Unit 7: 1890–1945 — Progressive Era, WWI, 1920s, Great Depression, New Deal, WWII</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">U.S. becomes a global power</div>
+                                <div class="concept-details">
+                                    The U.S. emerged as a world power through imperialism, acquiring overseas territories and projecting military strength. The Spanish-American War and subsequent interventions in Latin America and Asia established America as an imperial power with global interests.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Reformers tackle industrial problems</div>
+                                <div class="concept-details">
+                                    Progressives addressed problems caused by industrialization and urbanization through government regulation, social reforms, and political changes. They sought to make government more responsive to people's needs and curb the power of corporations.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Crisis-and-recovery reshapes government</div>
+                                <div class="concept-details">
+                                    The Great Depression challenged laissez-faire economics and led to the New Deal, which dramatically expanded the federal government's role in the economy and social welfare. This created a new relationship between citizens and the federal government.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Total war transforms society</div>
+                                <div class="concept-details">
+                                    World War II mobilized the entire nation for war production, transforming the economy, expanding federal power, and creating new opportunities for women and minorities. The war ended the Great Depression and positioned the U.S. as a global superpower.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Imperialism</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Spanish-American War (1898):</strong> "Remember the Maine!" Teller Amendment, Platt Amendment</li>
+                                        <li><strong>Territorial acquisitions:</strong> Puerto Rico, Guam, Philippines, Hawaii (1898)</li>
+                                        <li><strong>Open Door Policy (1899):</strong> Equal trading access to China</li>
+                                        <li><strong>Roosevelt Corollary (1904):</strong> "Big Stick" diplomacy, intervention in Latin America</li>
+                                        <li><strong>Panama Canal (1904-1914):</strong> Roosevelt supported revolution for canal rights</li>
+                                        <li><strong>Dollar Diplomacy:</strong> Taft's use of economic power for foreign policy</li>
+                                        <li><strong>Missionary Diplomacy:</strong> Wilson's moral approach to foreign policy</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Progressive Era</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Muckrakers:</strong> Ida Tarbell (Standard Oil), Upton Sinclair (The Jungle), Jacob Riis (How the Other Half Lives)</li>
+                                        <li><strong>Political reforms:</strong> Direct primary, initiative, referendum, recall, 17th Amendment (direct election of senators)</li>
+                                        <li><strong>Trust-busting:</strong> Sherman Antitrust Act, Clayton Antitrust Act, Northern Securities case</li>
+                                        <li><strong>Consumer protection:</strong> Pure Food and Drug Act, Meat Inspection Act</li>
+                                        <li><strong>Conservation:</strong> National parks, Forest Service, Hetch Hetchy controversy</li>
+                                        <li><strong>Constitutional amendments:</strong> 16th (income tax), 18th (Prohibition), 19th (women's suffrage)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">World War I</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Neutrality to entry:</strong> Submarine warfare, Lusitania, Zimmerman Telegram</li>
+                                        <li><strong>Home front mobilization:</strong> War Industries Board, Committee on Public Information</li>
+                                        <li><strong>Civil liberties:</strong> Espionage and Sedition Acts, Schenck v. U.S. (1919)</li>
+                                        <li><strong>Social changes:</strong> Great Migration, women in workforce, influenza pandemic</li>
+                                        <li><strong>Wilson's Fourteen Points:</strong> League of Nations, self-determination</li>
+                                        <li><strong>Treaty of Versailles:</strong> U.S. Senate rejection of League membership</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The 1920s</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Consumer culture:</strong> Automobiles, appliances, advertising, credit buying</li>
+                                        <li><strong>Harlem Renaissance:</strong> African American cultural movement, Langston Hughes, jazz</li>
+                                        <li><strong>Red Scare:</strong> Palmer Raids, fear of communism, Sacco and Vanzetti</li>
+                                        <li><strong>Nativism:</strong> Immigration quotas (Emergency Quota Act, 1924), KKK resurgence</li>
+                                        <li><strong>Prohibition:</strong> 18th Amendment, bootlegging, organized crime</li>
+                                        <li><strong>Scopes Trial (1925):</strong> Evolution vs. creationism, modernism vs. fundamentalism</li>
+                                        <li><strong>Republican policies:</strong> Laissez-faire economics, tax cuts, high tariffs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Great Depression and New Deal</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Causes:</strong> Stock market crash (1929), overproduction, bank failures, unequal wealth</li>
+                                        <li><strong>Hoover's response:</strong> Voluntarism, Reconstruction Finance Corporation, Bonus Army</li>
+                                        <li><strong>FDR's New Deal:</strong> Relief, recovery, reform</li>
+                                        <li><strong>Key programs:</strong> CCC, WPA, TVA, SSA, Wagner Act, AAA</li>
+                                        <li><strong>Court-packing plan (1937):</strong> Attempt to influence Supreme Court</li>
+                                        <li><strong>Critics:</strong> Left (Huey Long), right (American Liberty League)</li>
+                                        <li><strong>Legacy:</strong> Expanded government role, Social Security, labor rights</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">World War II</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Neutrality to involvement:</strong> Cash-and-carry, Lend-Lease, Pearl Harbor</li>
+                                        <li><strong>Home front:</strong> War Production Board, rationing, bond drives, propaganda</li>
+                                        <li><strong>Civil liberties:</strong> Japanese internment (Korematsu v. U.S.), censorship</li>
+                                        <li><strong>Double V Campaign:</strong> Victory over fascism abroad, racism at home</li>
+                                        <li><strong>Social changes:</strong> Women in workforce, Rosie the Riveter</li>
+                                        <li><strong>Military strategy:</strong> Europe first, island hopping in Pacific</li>
+                                        <li><strong>Manhattan Project:</strong> Atomic bomb development</li>
+                                        <li><strong>End of war:</strong> D-Day, Battle of the Bulge, Hiroshima and Nagasaki</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Reform cycles</div>
+                                <div class="concept-details">
+                                    American history shows cycles of reform response to problems: Progressive Era reforms addressed industrialization, New Deal tackled the Depression, and WWII mobilization created further changes. Each cycle expanded government's role in addressing social and economic problems.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Civil liberties in wartime</div>
+                                <div class="concept-details">
+                                    Both World Wars saw restrictions on civil liberties: Espionage and Sedition Acts in WWI, Japanese internment in WWII. These actions raised enduring questions about balancing national security with constitutional rights, tested in Supreme Court cases like Schenck and Korematsu.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Government's economic role</div>
+                                <div class="concept-details">
+                                    The period saw a dramatic shift in government's economic role: from laissez-faire in the 1920s to the New Deal's active intervention. This established precedents for government responsibility in regulating the economy, providing social welfare, and managing economic crises.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit8">
+                <div class="card">
+                    <h3>Unit 8: 1945–1980 — Cold War, Civil Rights, and social change</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Containment abroad</div>
+                                <div class="concept-details">
+                                    The U.S. pursued a policy of containing Soviet communism through military alliances, economic aid, and interventions. This Cold War strategy shaped American foreign policy for decades and led to conflicts in Korea, Vietnam, and around the world.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Rights revolutions at home</div>
+                                <div class="concept-details">
+                                    The Civil Rights Movement challenged racial segregation and discrimination, inspiring other movements for women's rights, Latino rights, Native American rights, and LGBTQ rights. These movements expanded democratic participation and transformed American society.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Liberalism's peak and conservative reaction</div>
+                                <div class="concept-details">
+                                    The 1960s saw the peak of liberal reform with the Great Society, but the Vietnam War, urban riots, and social changes sparked a conservative backlash. This set the stage for the rise of modern conservatism in the 1970s and 1980s.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Vietnam fractures consensus</div>
+                                <div class="concept-details">
+                                    The Vietnam War divided the nation, eroded trust in government, and fueled a powerful antiwar movement. The war's legacy shaped American foreign policy and domestic politics for decades, creating skepticism about military interventions.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Cold War</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Truman Doctrine (1947):</strong> Containment policy, aid to Greece and Turkey</li>
+                                        <li><strong>Marshall Plan (1948):</strong> Economic aid to rebuild Western Europe</li>
+                                        <li><strong>NATO (1949):</strong> Military alliance against Soviet expansion</li>
+                                        <li><strong>Chinese Revolution (1949):</strong> Communist victory under Mao Zedong</li>
+                                        <li><strong>Korean War (1950-1953):</strong> First "hot war" of Cold War, stalemate</li>
+                                        <li><strong>McCarthyism:</strong> Red Scare, House Un-American Activities Committee</li>
+                                        <li><strong>Eisenhower's New Look:</strong> Massive retaliation, brinkmanship</li>
+                                        <li><strong>Space Race:</strong> Sputnik (1957), NASA, Apollo program</li>
+                                        <li><strong>Cuban Missile Crisis (1962):</strong> Closest approach to nuclear war</li>
+                                        <li><strong>Détente:</strong> Nixon's policy of easing Cold War tensions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Affluence and culture</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Postwar prosperity:</strong> Suburban growth (Levittown), baby boom, consumerism</li>
+                                        <li><strong>Conformity vs. rebellion:</strong> Organization Man, Beat Generation (Kerouac, Ginsberg)</li>
+                                        <li><strong>Television:</strong> Mass media influence, advertising, political campaigns</li>
+                                        <li><strong>Youth culture:</strong> Rock and roll, Elvis Presley, teen culture</li>
+                                        <li><strong>Environmentalism:</strong> Rachel Carson's Silent Spring, Earth Day</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Civil Rights Movement</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Legal challenges:</strong> Brown v. Board of Education (1954), Little Rock Nine</li>
+                                        <li><strong>Nonviolent protest:</strong> Montgomery Bus Boycott, sit-ins, Freedom Rides</li>
+                                        <li><strong>Leadership:</strong> Martin Luther King Jr., Southern Christian Leadership Conference</li>
+                                        <li><strong>March on Washington (1963):</strong> "I Have a Dream" speech</li>
+                                        <li><strong>Legislation:</strong> Civil Rights Act (1964), Voting Rights Act (1965)</li>
+                                        <li><strong>Black Power:</strong> Malcolm X, Black Panthers, urban uprisings</li>
+                                        <li><strong>Affirmative action:</strong> Executive Order 11246, Bakke case</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Great Society</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>War on Poverty:</strong> Office of Economic Opportunity, Head Start</li>
+                                        <li><strong>Healthcare:</strong> Medicare, Medicaid</li>
+                                        <li><strong>Education:</strong> Elementary and Secondary Education Act</li>
+                                        <li><strong>Immigration:</strong> Immigration and Nationality Act (1965), ended quotas</li>
+                                        <li><strong>Urban issues:</strong> Model Cities program, housing legislation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Vietnam War</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Escalation:</strong> Gulf of Tonkin Resolution (1964), Operation Rolling Thunder</li>
+                                        <li><strong>Combat:</strong> Guerilla warfare, search and destroy, Tet Offensive (1968)</li>
+                                        <li><strong>Antiwar movement:</strong> Students for a Democratic Society, draft resistance</li>
+                                        <li><strong>My Lai Massacre:</strong> Atrocity that turned public opinion against war</li>
+                                        <li><strong>Vietnamization:</strong> Nixon's policy of turning war over to South Vietnamese</li>
+                                        <li><strong>War Powers Act (1973):</strong> Limited presidential war-making powers</li>
+                                        <li><strong>Fall of Saigon (1975):</strong> End of Vietnam War</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The 1970s</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Nixon and détente:</strong> SALT I, visit to China, opening relations</li>
+                                        <li><strong>Watergate scandal:</strong> Break-in, cover-up, resignation</li>
+                                        <li><strong>Energy crisis:</strong> OPEC embargo, stagflation, 55 mph speed limit</li>
+                                        <li><strong>Environmental laws:</strong> Clean Air Act, Clean Water Act, EPA</li>
+                                        <li><strong>Carter administration:</strong> Human rights policy, Camp David Accords</li>
+                                        <li><strong>Iran hostage crisis (1979-1981):</strong> 52 Americans held hostage</li>
+                                        <li><strong>Conservative resurgence:</strong> Religious Right, tax revolts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Federal power and rights</div>
+                                <div class="concept-details">
+                                    The era saw federal power used to expand rights (Civil Rights Act, Voting Rights Act) but also to restrict them (McCarthyism, surveillance of activists). The tension between federal authority and individual rights shaped debates over civil liberties, equality, and the proper role of government.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Cold War shaping domestic politics</div>
+                                <div class="concept-details">
+                                    Cold War imperatives influenced domestic politics: anti-communism fueled McCarthyism, defense spending drove economic growth, and the space race spurred technological innovation. The Vietnam War divided the nation and contributed to the rise of the New Left and conservative backlash.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Social movements' strategies and outcomes</div>
+                                <div class="concept-details">
+                                    Civil rights activists used legal challenges, nonviolent protest, and eventually more confrontational tactics. The movement achieved significant legislative victories but faced violent resistance. Other movements (women's rights, Latino rights, Native American rights) adapted these strategies with varying success.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="unit9">
+                <div class="card">
+                    <h3>Unit 9: 1980–Present — Contemporary America</h3>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Big Ideas</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Conservative resurgence</div>
+                                <div class="concept-details">
+                                    The election of Ronald Reagan marked a conservative shift in American politics, emphasizing tax cuts, deregulation, and traditional values. This "Reagan Revolution" transformed the Republican Party and reshaped national policy debates for decades.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">End of Cold War</div>
+                                <div class="concept-details">
+                                    The collapse of the Soviet Union ended the Cold War and left the U.S. as the world's sole superpower. This created new opportunities for global leadership but also new challenges in a multipolar world.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Globalization and technology</div>
+                                <div class="concept-details">
+                                    Advances in communication technology and free trade agreements created a more interconnected global economy. This brought economic benefits but also job displacement and increased competition, while digital technology transformed daily life and work.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">New social movements and polarization</div>
+                                <div class="concept-details">
+                                    New social movements emerged around issues like LGBTQ rights, environmentalism, and racial justice, while political polarization increased. The digital age transformed media and political discourse, contributing to partisan divides and challenges to democratic norms.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Key Topics & Examples</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Reagan era</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Reaganomics:</strong> Supply-side economics, tax cuts, deregulation</li>
+                                        <li><strong>Budget deficits:</strong> Increased military spending, reduced revenue</li>
+                                        <li><strong>PATCO strike (1981):</strong> Breaking of air traffic controllers' union</li>
+                                        <li><strong>War on Drugs:</strong> Anti-drug campaigns, mandatory minimum sentences</li>
+                                        <li><strong>Social conservatism:</strong> Opposition to abortion, support for traditional values</li>
+                                        <li><strong>Iran-Contra scandal:</strong> Secret arms sales to Iran, funding Contras</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">End of Cold War</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Reagan-Gorbachev summits:</strong> Geneva, Reykjavik, Washington, Moscow</li>
+                                        <li><strong>Gorbachev reforms:</strong> Glasnost (openness), perestroika (restructuring)</li>
+                                        <li><strong>Eastern European revolutions:</strong> Fall of Berlin Wall (1989)</li>
+                                        <li><strong>Dissolution of USSR (1991):</strong> End of Cold War, Commonwealth of Independent States</li>
+                                        <li><strong>Gulf War (1991):</strong> U.S.-led coalition against Iraq's invasion of Kuwait</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">The 1990s</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>Globalization:</strong> NAFTA (1994), WTO (1995), free trade agreements</li>
+                                        <li><strong>Technology boom:</strong> Internet, dot-com bubble, Silicon Valley</li>
+                                        <li><strong>Clinton administration:</strong> Welfare reform, crime bill, budget surpluses</li>
+                                        <li><strong>Impeachment (1998-1999):</strong> Perjury and obstruction of justice charges</li>
+                                        <li><strong>Culture wars:</strong> Abortion, gun control, LGBTQ issues</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">2000s–2020s</div>
+                                <div class="concept-details">
+                                    <ul>
+                                        <li><strong>9/11 and War on Terror:</strong> Attacks on World Trade Center and Pentagon</li>
+                                        <li><strong>Afghanistan and Iraq wars:</strong> Bush doctrine, preemptive strikes</li>
+                                        <li><strong>PATRIOT Act:</strong> Expanded government surveillance powers</li>
+                                        <li><strong>Great Recession (2008):</strong> Housing bubble, financial crisis, Obama stimulus</li>
+                                        <li><strong>Affordable Care Act (2010):</strong> Healthcare reform, insurance expansion</li>
+                                        <li><strong>Social movements:</strong> Tea Party, Occupy Wall Street, Black Lives Matter, #MeToo</li>
+                                        <li><strong>Same-sex marriage:</strong> Obergefell v. Hodges (2015)</li>
+                                        <li><strong>Immigration debates:</strong> Border security, DACA, family separation</li>
+                                        <li><strong>Climate change:</strong> Paris Agreement, Green New Deal, environmental policy</li>
+                                        <li><strong>COVID-19 pandemic:</strong> Public health crisis, economic shutdown, remote work</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-container">
+                        <div class="dropdown-header">
+                            <h4>Frequently Tested Connections</h4>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="concept-item">
+                                <div class="concept-title">Debates over federal role</div>
+                                <div class="concept-details">
+                                    Contemporary politics features ongoing debates about the proper role of federal government: conservatives advocate for limited government and states' rights, while liberals support federal action on issues like healthcare, climate change, and economic inequality. These debates shape policy on taxes, regulation, and social programs.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Security vs. liberty</div>
+                                <div class="concept-details">
+                                The War on Terror raised questions about balancing national security with civil liberties. The PATRIOT Act expanded surveillance powers, while debates over torture, drone strikes, and Guantanamo Bay detention highlighted tensions between security imperatives and constitutional rights.
+                                </div>
+                            </div>
+                            <div class="concept-item">
+                                <div class="concept-title">Impacts of globalization/technology/demography</div>
+                                <div class="concept-details">
+                                    Globalization created economic interdependence but also job displacement and inequality. Digital technology transformed communication, work, and social interaction while raising privacy concerns. Demographic changes (aging population, increasing diversity) reshaped politics and culture, creating both opportunities and tensions.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Historical Reasoning Skills</h2>
+            
+            <div class="grid">
+                <div class="skill-card">
+                    <h3>Causation</h3>
+                    <p>Causes and effects (short- and long-term)</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Comparison</h3>
+                    <p>Similarities/differences across times/places</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Continuity and Change (CCOT)</h3>
+                    <p>What changed, what stayed the same, why</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Periodization</h3>
+                    <p>Turning points and historical significance</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Sourcing</h3>
+                    <p>HIPP for documents (Historical situation, Intended audience, Purpose, Point of view)</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Evidence + Argumentation</h3>
+                    <p>Craft a defensible thesis and support it</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="exam" class="section">
+        <div class="container">
+            <h2 class="section-title">Exam Format and Scoring</h2>
+            
+            <div class="exam-section">
+                <h3>Section Breakdown</h3>
+                
+                <div class="grid">
+                    <div class="exam-card">
+                        <h4>MCQ</h4>
+                        <p>55 questions, 55 minutes</p>
+                        <div class="weight-bar">
+                            <div class="weight-label">Weight:</div>
+                            <div class="progress-bar" style="flex-grow: 1;">
+                                <div class="progress" style="width: 40%"></div>
+                            </div>
+                            <div class="weight-value">40%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="exam-card">
+                        <h4>SAQ</h4>
+                        <p>3 questions, 40 minutes</p>
+                        <div class="weight-bar">
+                            <div class="weight-label">Weight:</div>
+                            <div class="progress-bar" style="flex-grow: 1;">
+                                <div class="progress" style="width: 20%"></div>
+                            </div>
+                            <div class="weight-value">20%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="exam-card">
+                        <h4>DBQ</h4>
+                        <p>1 essay, 60 minutes</p>
+                        <div class="weight-bar">
+                            <div class="weight-label">Weight:</div>
+                            <div class="progress-bar" style="flex-grow: 1;">
+                                <div class="progress" style="width: 25%"></div>
+                            </div>
+                            <div class="weight-value">25%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="exam-card">
+                        <h4>LEQ</h4>
+                        <p>1 essay (choose 1 of 3), 40 minutes</p>
+                        <div class="weight-bar">
+                            <div class="weight-label">Weight:</div>
+                            <div class="progress-bar" style="flex-grow: 1;">
+                                <div class="progress" style="width: 15%"></div>
+                            </div>
+                            <div class="weight-value">15%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exam-section">
+                <h3>How to Prep for Each Question Type</h3>
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="mcq">MCQ</div>
+                    <div class="tab" data-tab="saq">SAQ</div>
+                    <div class="tab" data-tab="dbq">DBQ</div>
+                    <div class="tab" data-tab="leq">LEQ</div>
+                </div>
+                
+                <div class="tab-content active" id="mcq">
+                    <div class="card">
+                        <h4>Multiple Choice (MCQ) Strategy</h4>
+                        <ul>
+                            <li>Read the stimulus first; identify the time/place; predict before choices</li>
+                            <li>Eliminate wrong choices aggressively; each question ~60 seconds</li>
+                            <li>Study by practicing stimulus-based sets; build a “timeline in your head”</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="saq">
+                    <div class="card">
+                        <h4>Short Answer Question (SAQ) Strategy</h4>
+                        <ul>
+                            <li>Use ACE for each part: Answer (1 sentence), Cite evidence (1–2), Explain the connection (1)</li>
+                            <li>2–4 sentences per part; aim for 3 crisp claims per question</li>
+                            <li>Address the reasoning word (cause, effect, similarity, change) explicitly</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="dbq">
+                    <div class="card">
+                        <h4>Document-Based Question (DBQ) Strategy</h4>
+                        <ul>
+                            <li>Planning (10–12 min): thesis, quick outline, group docs into 2–3 buckets</li>
+                            <li>Use 6+ docs; source at least 3 with HIPP language that matters to your argument</li>
+                            <li>Weave 1–2 outside evidence pieces; hit contextualization in intro</li>
+                            <li>Complexity: consider counterargument, continuity/changes, or multiple causes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="leq">
+                    <div class="card">
+                        <h4>Long Essay Question (LEQ) Strategy</h4>
+                        <ul>
+                            <li>Choose the prompt you can evidence best</li>
+                            <li>Outline 2–3 body paragraphs; explicitly apply the reasoning skill</li>
+                            <li>Use 5–7 specific pieces of evidence; be clear and comparative/causal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exam-section">
+                <h3>Thesis and Sourcing Sentence Starters</h3>
+                
+                <div class="card">
+                    <h4>Comparison</h4>
+                    <p>Although X and Y shared A and B, they diverged because of C and D, leading to E.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Causation</h4>
+                    <p>While several factors contributed to X, the most significant were A and B because they produced C.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>CCOT</h4>
+                    <p>Between YEAR and YEAR, X changed in A and B, yet C persisted due to D; together these shaped E.</p>
+                </div>
+                
+                <div class="card">
+                    <h4>Sourcing (HIPP)</h4>
+                    <p>Given the author’s role as [position] writing amid [historical situation], the purpose to [goal] likely led them to [claim/bias], which affects how we interpret the document as evidence for [argument point].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="study" class="section">
+        <div class="container">
+            <h2 class="section-title">Study Plan</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="year-long">Year-Long Approach</div>
+                <div class="tab" data-tab="spring-review">8-Week Spring Review</div>
+                <div class="tab" data-tab="daily-habits">Daily Habits</div>
+                <div class="tab" data-tab="exam-week">Exam Week</div>
+            </div>
+            
+            <div class="tab-content active" id="year-long">
+                <div class="card">
+                    <h3>Year-Long Study Approach</h3>
+                    <ul>
+                        <li>Build a running timeline and theme tracker. For each unit, list 6–10 events with dates and tag NAT, MIG, WXT, etc.</li>
+                        <li>Do frequent SAQs: 2 per week during the year; 1 DBQ or LEQ every 2–3 weeks</li>
+                        <li>After each unit test, make a one-page “Unit X in 10 bullets” sheet</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="spring-review">
+                <div class="card">
+                    <h3>8-Week Spring Review Plan</h3>
+                    <ul>
+                        <li><strong>Weeks 1–2:</strong> Units 3–4 deep review; 2 SAQ sets/week; 1 LEQ</li>
+                        <li><strong>Weeks 3–4:</strong> Units 5–6; 2 SAQ sets/week; 1 DBQ (timed)</li>
+                        <li><strong>Weeks 5–6:</strong> Units 7–8; 2 SAQ sets/week; 1 LEQ; targeted MCQs on weak areas</li>
+                        <li><strong>Week 7:</strong> Unit 2 + Unit 9; 1 DBQ (timed); mixed MCQs (3 sets of 10–15)</li>
+                        <li><strong>Week 8 (Exam week):</strong> Light content refresh; 1–2 SAQs; thesis drills; practice 10-min DBQ outlines from past prompts</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="daily-habits">
+                <div class="card">
+                    <h3>Daily/Weekly Habits That Work</h3>
+                    <ul>
+                        <li><strong>Active recall:</strong> create and quiz yourself on 25–40 “must-know” terms per unit</li>
+                        <li><strong>Thematic blocks:</strong> practice writing one-sentence cause, comparison, and CCOT claims for each unit</li>
+                        <li><strong>Use released materials:</strong> AP Classroom progress checks; College Board released DBQs/LEQs</li>
+                        <li><strong>Flashcards:</strong> for laws, cases, turning points, and reformers</li>
+                        <li><strong>10-minute warm-ups:</strong> “What were the three most important causes of [event] and why?”</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="exam-week">
+                <div class="card">
+                    <h3>Exam Week Game Plan</h3>
+                    <ul>
+                        <li><strong>Two days out:</strong> Write 3 thesis statements (comp, causation, CCOT) for random prompts; do 15–20 MCQs; one SAQ set</li>
+                        <li><strong>Day before:</strong> Outline a DBQ in 10 minutes; review your outside-evidence bank; skim your unit one-pagers</li>
+                        <li><strong>Test day pacing:</strong>
+                            <ul>
+                                <li>MCQ: ~1 min/question; flag and move</li>
+                                <li>SAQ: 12–13 min each; answer all parts; be concise</li>
+                                <li>DBQ: 10–12 min plan; 40–45 min write; 3–5 min polish</li>
+                                <li>LEQ: 5–7 min plan; 28–30 min write; 3–5 min polish</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exam-section">
+                <h3>Common Pitfalls and How to Avoid Them</h3>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>Pitfall: Listing facts without argument</h4>
+                        <p><strong>Fix:</strong> Every paragraph needs a claim tied to the prompt.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Pitfall: Summarizing documents</h4>
+                        <p><strong>Fix:</strong> Use documents to make analytical points; add HIPP where relevant.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Pitfall: Thin outside evidence in DBQ</h4>
+                        <p><strong>Fix:</strong> Prep 2–3 “automatic” outside-evidence items per unit.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Pitfall: Missing the reasoning skill</h4>
+                        <p><strong>Fix:</strong> Underline the task word (cause/compare/CCOT) and explicitly mirror it in topic sentences.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Pitfall: Running out of time</h4>
+                        <p><strong>Fix:</strong> Practice strict timing; outline first; write concise, evidence-dense sentences.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exam-section">
+                <h3>Resources That Consistently Help</h3>
+                
+                <div class="card">
+                    <ul>
+                        <li>AP Classroom progress checks + unit guides (official)</li>
+                        <li>AMSCO AP U.S. History review book</li>
+                        <li>Heimler's History (videos + DBQ/LEQ walkthroughs)</li>
+                        <li>Khan Academy APUSH practice</li>
+                        <li>Essay rubric handouts from your teacher or AP Central</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>APUSH Interactive Course Teacher</p>
+            <p>Created for AP U.S. History students and teachers</p>
+            <p><a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Get the target section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    // Scroll to target section
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Card toggle functionality
+            const cardHeaders = document.querySelectorAll('.card-header');
+            
+            cardHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.toggle-icon');
+                    
+                    content.classList.toggle('active');
+                    icon.classList.toggle('active');
+                });
+            });
+            
+            // Tab functionality for units
+            const unitTabs = document.querySelectorAll('#units .tab');
+            const unitContents = document.querySelectorAll('#units .tab-content');
+            
+            unitTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    unitTabs.forEach(t => t.classList.remove('active'));
+                    unitContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Tab functionality for exam prep
+            const examTabs = document.querySelectorAll('#exam .tab');
+            const examContents = document.querySelectorAll('#exam .tab-content');
+            
+            examTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    examTabs.forEach(t => t.classList.remove('active'));
+                    examContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Tab functionality for study plan
+            const studyTabs = document.querySelectorAll('#study .tab');
+            const studyContents = document.querySelectorAll('#study .tab-content');
+            
+            studyTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    studyTabs.forEach(t => t.classList.remove('active'));
+                    studyContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Dropdown functionality for unit content
+            const dropdownHeaders = document.querySelectorAll('.dropdown-header');
+            
+            dropdownHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.dropdown-icon');
+                    
+                    content.classList.toggle('active');
+                    icon.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
